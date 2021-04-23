@@ -1,6 +1,9 @@
 package it.unibo.oop.lab.anonymous1;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import it.unibo.oop.lab.socialnetwork.SocialNetworkUser;
@@ -21,7 +24,8 @@ import it.unibo.oop.lab.socialnetwork.User;
  */
 public final class TestAnonymousComparator {
 
-    private TestAnonymousComparator() { }
+    private TestAnonymousComparator() {  	
+    }
 
     /**
      * Check whether the users in result list are in the same order as those in
@@ -74,7 +78,17 @@ public final class TestAnonymousComparator {
          * 
          * REFER TO LESSON 13-Advanced-Mechanisms.pdf, slide 41
          */
+        Collections.sort(denzelUsers, new Comparator<User>(){
+        	public int compare(User  a, User b) {
+        		
+        		return a.getAge() - b.getAge();
+        	}
+        });
+        
+        
         // TODO
+        
+        
         /*
          * expected Result
          */
@@ -105,6 +119,13 @@ public final class TestAnonymousComparator {
          * NOTE: in order to sort a list think about a method of the utility
          * class Collections
          */
+        Collections.sort(rossiUsers, new Comparator<User>(){
+        	public int compare(User  a, User b) {
+        		
+        		return  b.getAge() - a.getAge();
+        	}
+        });
+        
         // TODO
         /*
          * expected Result

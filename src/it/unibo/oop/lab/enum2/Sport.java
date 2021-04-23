@@ -17,44 +17,52 @@ package it.unibo.oop.lab.enum2;
  */
 public enum Sport {
 
-    /*
-     * TODO
-     * 
-     * Declare the following sports:
-     * 
-     * - basket
-     * 
-     * - volley
-     * 
-     * - tennis
-     * 
-     * - bike
-     * 
-     * - F1
-     * 
-     * - motogp
-     * 
-     * - soccer
-     * 
-     */
+ 
+     BASKET(Place.INDOOR, 5, "Basket"),
+     
+     VOLLEY(Place.INDOOR, 6, "Volley"),
+     
+     TENNIS(Place.INDOOR, 1, "Tennis"),
+     
+     BIKE(Place.OUTDOOR, 1, "Bike"),
+     
+     F1(Place.OUTDOOR, 1, "F1"),
+      
+     MOTOGP(Place.OUTDOOR, 1, "MotoGP"),
+     
+     SOCCER(Place.OUTDOOR, 11, "Soccer");
+     
+     
+     final Place place;
+     final int noTeamMembers;
+     final String actualName;
+    
+     private Sport(final Place place, final int noTeamMembers, final String actualName) {
+    	this.place = place;
+    	this.noTeamMembers = noTeamMembers;
+    	this.actualName = actualName;
+    }
+     
+     public boolean isIndividualSports() {
+		return this.noTeamMembers == 1;
+    	 
+     }
+     
+     public boolean isIndoorSports() {
+		return this.place.equals(Place.INDOOR);
+    	 
+     }
+     
+     public Place getPlace() {
+		return this.place;
+    	 
+     }
+     
+     public String toString() {
+    	 return "[Name: " + this.actualName + " place: " + getPlace() + "player: " + this.noTeamMembers;
+     }
+     
 
-    /*
-     * TODO
-     * 
-     * [FIELDS]
-     * 
-     * Declare required fields
-     */
-
-    /*
-     * TODO
-     * 
-     * [CONSTRUCTOR]
-     * 
-     * Define a constructor like this:
-     * 
-     * - Sport(final Place place, final int noTeamMembers, final String actualName)
-     */
 
     /*
      * TODO

@@ -3,6 +3,12 @@
  */
 package it.unibo.oop.lab.enum2;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import it.unibo.oop.lab.enum2.Sport;
+import it.unibo.oop.lab.enum2.Sport2SocialNetworkUserImpl.Condition;
 import it.unibo.oop.lab.socialnetwork.SocialNetworkUserImpl;
 import it.unibo.oop.lab.socialnetwork.User;
 
@@ -25,11 +31,7 @@ import it.unibo.oop.lab.socialnetwork.User;
  */
 public class Sport2SocialNetworkUserImpl<U extends User> extends SocialNetworkUserImpl<U> {
 
-    /*
-     * TODO
-     * 
-     * add a field to keep track of the set of sports followed/done by a user
-     */
+	 private final Set<Sport> sportsFollowed;
 
     /**
      * Builds a new {@link Sport2SocialNetworkUserImpl}.
@@ -61,6 +63,8 @@ public class Sport2SocialNetworkUserImpl<U extends User> extends SocialNetworkUs
      */
     public Sport2SocialNetworkUserImpl(final String name, final String surname, final String user, final int userAge) {
         super(name, surname, user, userAge);
+        this.sportsFollowed = new LinkedHashSet<>();
+        
     }
 
     /*
@@ -75,7 +79,7 @@ public class Sport2SocialNetworkUserImpl<U extends User> extends SocialNetworkUs
      *            a sport followed/done by the user
      */
     public void addSport(final Sport sport) {
-
+    	this.sportsFollowed.add(sport);
     }
 
     /**
@@ -87,12 +91,42 @@ public class Sport2SocialNetworkUserImpl<U extends User> extends SocialNetworkUs
      * @return true if user likes sport s
      */
     public boolean likesSport(final Sport s) {
-        return false;
+        return this.sportsFollowed.contains(s);
     }
 
     /*
      * [METHODS] NEW METHODS TO IMPLEMENT FROM SCRATCH
      */
+    public Set<Sport> getIndividualSports() {
+        return filterSports(new Condition<Sport>() {
+            public boolean test(final Sport s) {
+                return s.isIndividualSports();
+            }
+        });
+    }
+    
+    public Set<Sport> getSportPracticedInPlace(final Place p) {
+        return filterSports(new Condition<Sport>() {
+            public boolean test(final Sport s) {
+                return s.getPlace().equals(p);
+            }
+        });
+    }
+
+    private Set<Sport> filterSports(final Condition<Sport> condition) {
+        final Set<Sport> resultingSet = new LinkedHashSet<>();
+        for (final Sport s : this.sportsFollowed) {
+            if (condition.test(s)) {
+                resultingSet.add(s);
+            }
+        }
+        return resultingSet;
+    }
+
+    private interface Condition<T> {
+        boolean test(T t);
+    }
+}
 
     /**
      * Returns the set of individual sports followed/practiced by this user: a
